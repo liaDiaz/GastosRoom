@@ -33,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //se construye la base de datos
         val db = Room.databaseBuilder(this@MainActivity, GastosDB::class.java, "gastos").build()
-        gastoDao = db.gastoDao()
+        // se obtiene el do
+        gastoDao = db.gastoDB()
         initRecycler()
         initViewModel()
     }
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModel(){
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        //es para que se actulicen  los cambios
         viewModel.getLiveDataObserver().observe(this, Observer {
             if(!it.isEmpty()){
                 adapter.setGastos(it)

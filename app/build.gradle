@@ -18,6 +18,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //donde se van a gurdar las tablas y son opciones para el compilador
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [

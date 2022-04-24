@@ -8,6 +8,7 @@ import androidx.room.Room
 import edu.itesm.gastos.dao.GastoDao
 import edu.itesm.gastos.database.GastosDB
 import edu.itesm.gastos.entities.Gasto
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,12 +21,22 @@ class MainActivityViewModel : ViewModel(){
         liveData = MutableLiveData()
     }
 
+        //es mmejor regresar la lista que el objecto que contine la lista
     fun getLiveDataObserver(): MutableLiveData<List<Gasto>>{
         return liveData
     }
 
     fun getGastos(gastoDao: GastoDao){
+        //dao inserta pero todos se corre en la coorutina
+        CoroutineScope(Dispatchers.IO).launch {
+            for (i in 0..100){
+                gastoDao.insertaGasto(Gasto(0,"Gasto ${i}", Random.nextDouble()*100))
 
+            }
+            //esto le dice al live data que actualice y ponga todos los gastos de la live data
+            liveData.postValue(gastoDao.getAllGastos())
+
+        }
 
 
     }
