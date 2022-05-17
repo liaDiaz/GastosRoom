@@ -10,7 +10,7 @@ import edu.itesm.gastos.entities.Gasto
 
 //se crea las tablas
 // da de data las entidades
- @Database(entities = [Gasto::class ], version = 1)
+ @Database(entities = [Gasto::class ], version = 2)
 // hace referencia a las
 abstract class GastosDB: RoomDatabase(){
     abstract fun gastoDB(): GastoDao
